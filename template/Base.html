@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+        {% endblock %}
+    </title>
+<!--  CDNS -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+<!-- nav bar -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'Index' %}">Events</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="{% url 'Index' %}">Home</a></li>
+      <li><a href="{% url 'About' %}">About</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'Events' %}">Events</a></li>
+      <li><a href="{% url 'Booking' %}">Booking</a></li>
+      <li><a href="{% url 'Contact' %}">Contact</a></li>
+      {% endif %}
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {% if not user.is_authenticated %}
+      <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-user"></span> {{user.username}}</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<!-- block body -->
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+</html>
